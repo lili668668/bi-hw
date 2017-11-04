@@ -1,0 +1,5 @@
+info
+raw_data
+*.db
+__pycache__
+*.pyc
