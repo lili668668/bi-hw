@@ -17,6 +17,14 @@ init_cleaned_data_sql = 'create table cleaned_data (time, sno, sv, tot, sbi,  be
 c.execute(drop_cleaned_data_sql)
 c.execute(init_cleaned_data_sql)
 
+select_fixed_data_sql = 'select * from fixed_data where sv = 1 and tot != 0;'
+insert_cleaned_data_sql = 'insert into cleaned_data values(?, ?, ?, ?, ?, ?);'
+info = c.execute(select_fixed_data_sql).fetchall()
+Observable.from_(info) \
+    .subscribe(on_next = lambda item: c.execute(insert_cleaned_data_sql, item)
+            , on_error = lambda e: print(e)
+            , on_completed = lambda: conn.commit())
+
 # 資料轉換
 # 時間轉換成離散資料，以30分鐘為單位，並計算計算車輛的使用率：空車數量 / 總車位數
 # 將不同佔點與不同時間，車輛使用率的資料，轉換成離散資料
