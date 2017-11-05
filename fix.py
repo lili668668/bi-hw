@@ -4,6 +4,9 @@ import rx
 import time
 from rx import Observable, Observer
 
+# 刪減維度
+# 資料整合
+
 def make_time_from_mday(raw_time):
     tmp_time = time.strptime(raw_time, '%Y%m%d%H%M%S')
     fin_time = time.strftime('%Y-%m-%d %H:%M:%S', tmp_time)
@@ -27,8 +30,6 @@ c.execute(drop_site_sql)
 c.execute(init_site_sql)
 c.execute(drop_fixed_data_sql)
 c.execute(init_fixed_data_sql)
-
-conn.commit()
 
 insert_site_sql = 'insert into site values(?, ?, ?, ?, ?, ?, ?);'
 select_site_info_sql = 'select sno, sna, sarea, ar, sareaen, snaen, aren from raw_data group by sno;'
