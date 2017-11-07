@@ -37,7 +37,9 @@ def GetInfo(pre_time):
     info = c.execute(select_cleaned_data_sql, pre_time, end_time).fetchall()
     Observable.from_(info) \
             .group_by(lambda item: item[1]) \
-            .
+            .map(lambda item: (pre_time, item[1], item[5]/item[3]))
+            .average(lambda item: item[2])
+            .subscribe(print)
 
 
 drop_transformed_data_sql = 'drop table if exists transformed_data;'
