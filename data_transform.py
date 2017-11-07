@@ -7,7 +7,6 @@ from rx import Observable, Observer
 
 # 資料轉換
 # 時間轉換成離散資料，以30分鐘為單位，並計算計算車輛的使用率：空車數量 / 總車位數
-# 將不同佔點與不同時間，車輛使用率的資料，轉換成離散資料
 
 global conn
 conn = sqlite3.connect(const.YOUBIKE_DB_NAME)
